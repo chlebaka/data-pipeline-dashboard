@@ -1,0 +1,27 @@
+[project]
+name = "data-pipeline-dashboard"
+version = "0.1.0"
+description = "CSV/JSON data pipeline with an interactive Streamlit dashboard"
+readme = "README.md"
+authors = [
+    { name = "Janko", email = "andrejchlebakk@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=3.0.5",
+    "plotly>=6.9.0",
+    "streamlit>=1.60.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
