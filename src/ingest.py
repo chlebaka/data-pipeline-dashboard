@@ -25,7 +25,14 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Translate Slovak Search Console headers to English column names."""
     return df.rename(columns=COLUMN_NAMES)
 
+def parse_ctr(df: pd.DataFrame) -> pd.DataFrame:
+    """Convert the CTR column from percentage strings to floats."""
+    df = df.copy()
+    df["CTR"] = df["CTR"].str.rstrip("%").astype(float) / 100
+    return df
+
 if __name__ == "__main__":
-    df = rename_columns(load_csv("Graf.csv"))
+    df = parse_ctr(rename_columns(load_csv("Graf.csv")))
     print(df.head())
     print(f"\nRows: {len(df)}")
+    print(f"CTR dtype: {df['CTR'].dtype}")
