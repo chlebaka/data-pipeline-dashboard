@@ -19,7 +19,12 @@ COLUMN_NAMES = {
 def load_csv(filename: str) -> pd.DataFrame:
     """Read a single Search Console CSV export from the data directory."""
     path = DATA_DIR / filename
-    return pd.read_csv(path, encoding="utf-8")
+    if not path.exists():
+        raise FileNotFoundError(f"No such export in data directory: {filename}")
+    df = pd.read_csv(path, encoding="utf-8")
+    if df.empty:
+        raise ValueError(f"Export contains no rows: {filename}")
+    return df
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Translate Slovak Search Console headers to English column names."""
@@ -27,6 +32,8 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 def parse_ctr(df: pd.DataFrame) -> pd.DataFrame:
     """Convert the CTR column from percentage strings to floats."""
+    if "CTR" not in df.columns:
+        raise KeyError("Expected a CTR column; run rename_columns first")
     df = df.copy()
     df["CTR"] = df["CTR"].str.rstrip("%").astype(float) / 100
     return df
