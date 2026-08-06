@@ -1,1 +1,5 @@
 This project turns raw Google Search Console exports into an interactive dashboard for tracking a website's organic search performance. It solves the problem that GSC's own interface makes long-term comparison and cross-report analysis awkward: the data arrives as a bundle of separate CSV files with locale-specific headers, CTR stored as percentage strings, and no derived metrics. The pipeline ingests those exports (daily time series, search queries, landing pages, countries, devices), normalises headers and data types, and computes rolling averages plus month-over-month changes. The output is a Streamlit dashboard with KPI cards, filterable charts, a searchable query table, and a CSV export of the filtered view. Sample data comes from a live site with roughly 1,400 clicks and 26,000 impressions over twelve months.
+
+## Live demo
+
+https://data-pipeline-dashboard-mfhncyqezq52hbppymwrt3.streamlit.app
